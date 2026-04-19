@@ -113,13 +113,61 @@
   }
 
   .video-wrap { margin-bottom: 3rem; }
-  .video-wrap video { width: 100%; display: block; background: #000; }
+  .video-wrap video { width: 100%; max-height: 55vh; display: block; background: #000; object-fit: contain; }
   .video-caption {
     font-size: 0.72rem;
     color: var(--muted);
     margin-top: 0.5rem;
     font-style: italic;
     font-family: var(--serif);
+  }
+
+  .video-controls {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .video-scrub {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+    accent-color: var(--text);
+  }
+  .video-scrub::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text);
+    cursor: pointer;
+  }
+  .video-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .video-btn {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: color 0.1s, border-color 0.1s;
+  }
+  .video-btn:hover { color: var(--text); border-color: var(--light); }
+  .video-time {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--light);
+    margin-left: auto;
   }
 
   .intro {
@@ -443,11 +491,83 @@
 
   <!-- VIDEO -->
   <div class="video-wrap">
-    <video autoplay muted loop playsinline>
-      <source src="figures/header.mp4" type="video/mp4">
+    <video id="buildVideo" muted playsinline autoplay style="cursor:pointer;">
+      <source src="figures/full_build_video.mp4" type="video/mp4">
     </video>
+    <div class="video-controls">
+      <input type="range" class="video-scrub" id="videoScrub" min="0" step="0.01" value="0">
+      <div class="video-btns">
+        <button class="video-btn" id="videoPlayPause">play</button>
+        <button class="video-btn" id="videoStop">stop</button>
+        <span class="video-time" id="videoTime">0:00 / 0:00</span>
+      </div>
+    </div>
     <p class="video-caption">Overview — full build walkthrough</p>
   </div>
+
+  <script>
+    (function() {
+      const video = document.getElementById('buildVideo');
+      const scrub = document.getElementById('videoScrub');
+      const playPause = document.getElementById('videoPlayPause');
+      const stop = document.getElementById('videoStop');
+      const timeDisplay = document.getElementById('videoTime');
+      const TOTAL = 345; // 5:45 fallback
+
+      function fmt(s) {
+        if (!isFinite(s)) s = 0;
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return m + ':' + String(sec).padStart(2, '0');
+      }
+
+      function setDuration(d) {
+        scrub.max = d;
+        timeDisplay.textContent = fmt(video.currentTime) + ' / ' + fmt(d);
+      }
+
+      // Set fallback immediately, update when metadata arrives
+      setDuration(TOTAL);
+
+      video.addEventListener('loadedmetadata', () => {
+        const d = isFinite(video.duration) && video.duration > 0 ? video.duration : TOTAL;
+        setDuration(d);
+      });
+
+      // Some browsers need durationchange too
+      video.addEventListener('durationchange', () => {
+        if (isFinite(video.duration) && video.duration > 0) setDuration(video.duration);
+      });
+
+      video.addEventListener('timeupdate', () => {
+        const d = isFinite(video.duration) && video.duration > 0 ? video.duration : TOTAL;
+        scrub.value = video.currentTime;
+        timeDisplay.textContent = fmt(video.currentTime) + ' / ' + fmt(d);
+      });
+
+      video.addEventListener('play', () => { playPause.textContent = 'pause'; });
+      video.addEventListener('pause', () => { playPause.textContent = 'play'; });
+      video.addEventListener('ended', () => { playPause.textContent = 'play'; });
+
+      // Click on video to play/pause
+      video.addEventListener('click', () => {
+        video.paused ? video.play() : video.pause();
+      });
+
+      scrub.addEventListener('input', () => {
+        video.currentTime = scrub.value;
+      });
+
+      playPause.addEventListener('click', () => {
+        video.paused ? video.play() : video.pause();
+      });
+
+      stop.addEventListener('click', () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    })();
+  </script>
 
   <!-- INTRO -->
   <div class="intro" id="overview">
