@@ -3,207 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House of Dextra — Build Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400;500&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<title>House of Dextra: Build Guide</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0d0d;
-    --text: #e8e8e8;
-    --muted: #888888;
-    --light: #555555;
-    --border: #222222;
-    --surface: #141414;
-    --serif: 'Lora', Georgia, serif;
-    --sans: 'Source Sans 3', sans-serif;
-    --mono: 'Source Code Pro', monospace;
+    --bg:      #0d0d0f;
+    --surface: #141416;
+    --border:  #242428;
+    --muted:   #55555e;
+    --secondary: #9898a8;
+    --body:    #c8c8d8;
+    --heading: #f0f0f4;
+    --accent:  #7b9de8;
+    --accent2: #a8c4ff;
+    --serif:   'Noto Serif', Georgia, serif;
+    --sans:    'Noto Sans', system-ui, sans-serif;
+    --mono:    'Monaco', 'Menlo', 'Courier New', monospace;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
-    color: var(--text);
+    color: var(--body);
     font-family: var(--sans);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.8;
   }
 
-  a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+  a { color: var(--body); text-decoration: underline; text-underline-offset: 3px; }
   a:hover { color: #fff; }
 
+  /* ── Top bar ───────────────────────── */
+  .topbar {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .topbar a { color: var(--secondary); text-decoration: none; letter-spacing: 0.05em; }
+  .topbar a:hover { color: var(--heading); }
+
+  /* ── Layout ────────────────────────── */
   .page {
     display: grid;
-    grid-template-columns: 210px 1fr;
+    grid-template-columns: 200px 1fr;
     min-height: 100vh;
     max-width: 960px;
     margin: 0 auto;
   }
 
   aside {
-    padding: 3.5rem 2rem 3.5rem 0;
+    padding: 3rem 2rem 3rem 0;
     border-right: 1px solid var(--border);
     position: sticky;
-    top: 0;
-    height: 100vh;
+    top: 37px;
+    height: calc(100vh - 37px);
     overflow-y: auto;
   }
 
   .site-name {
     font-family: var(--serif);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 400;
     margin-bottom: 0.15rem;
+    color: var(--heading);
     line-height: 1.3;
-    color: #fff;
   }
-
   .site-sub {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--muted);
-    margin-bottom: 2.5rem;
-    font-weight: 300;
+    margin-bottom: 2rem;
   }
 
   .sidebar-section {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--light);
+    color: var(--muted);
     margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
   }
 
   .sidebar-nav { list-style: none; }
-  .sidebar-nav li { margin-bottom: 0; }
   .sidebar-nav a {
     font-size: 0.82rem;
-    color: var(--muted);
+    color: var(--secondary);
     text-decoration: none;
     display: block;
     padding: 0.18rem 0;
     transition: color 0.1s;
   }
-  .sidebar-nav a:hover { color: var(--text); }
+  .sidebar-nav a:hover { color: var(--body); }
 
   .sidebar-ext {
-    margin-top: 2.5rem;
-    padding-top: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
     border-top: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
   }
-
   .sidebar-ext a {
     font-size: 0.78rem;
-    color: var(--muted);
+    color: var(--secondary);
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 0.4rem;
   }
-  .sidebar-ext a:hover { color: var(--text); }
-  .sidebar-ext a::before { content: '↗'; font-size: 0.7rem; color: var(--light); }
+  .sidebar-ext a:hover { color: var(--body); }
+  .sidebar-ext a::before { content: '↗'; font-size: 0.7rem; color: var(--muted); }
 
+  /* ── Main ──────────────────────────── */
   main {
-    padding: 3.5rem 0 6rem 3.5rem;
+    padding: 3rem 0 6rem 3rem;
     min-width: 0;
   }
 
-  .video-wrap { margin-bottom: 3rem; }
-  .video-wrap video { width: 100%; max-height: 55vh; display: block; background: #000; object-fit: contain; }
-  .video-caption {
-    font-size: 0.72rem;
-    color: var(--muted);
-    margin-top: 0.5rem;
-    font-style: italic;
-    font-family: var(--serif);
-  }
-
-  .video-controls {
-    margin-top: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .video-scrub {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 3px;
-    background: var(--border);
-    outline: none;
-    cursor: pointer;
-    accent-color: var(--text);
-  }
-  .video-scrub::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--text);
-    cursor: pointer;
-  }
-  .video-btns {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .video-btn {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    background: none;
-    border: 1px solid var(--border);
-    padding: 0.3rem 0.75rem;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    transition: color 0.1s, border-color 0.1s;
-  }
-  .video-btn:hover { color: var(--text); border-color: var(--light); }
-  .video-time {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--light);
-    margin-left: auto;
-  }
-
-  .intro {
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .intro h1 {
-    font-family: var(--serif);
-    font-size: 1.9rem;
-    font-weight: 400;
-    line-height: 1.25;
-    margin-bottom: 1rem;
-    color: #fff;
-  }
-  .intro h1 em { font-style: italic; }
-
-  .intro p {
-    font-size: 0.92rem;
-    color: var(--muted);
-    font-weight: 300;
-    max-width: 560px;
-    margin-bottom: 0.75rem;
-  }
-
-  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; }
-  .tag {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 0.2rem 0.6rem;
-    text-decoration: none;
-  }
-
+  /* ── Section ───────────────────────── */
   .section {
     margin-bottom: 3rem;
     padding-bottom: 3rem;
@@ -212,41 +141,58 @@
   .section:last-child { border-bottom: none; }
 
   .section-label {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--light);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    color: var(--heading);
   }
 
   h2 {
     font-family: var(--serif);
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     font-weight: 400;
     margin-bottom: 0.75rem;
-    color: #fff;
+    color: var(--heading);
     line-height: 1.3;
   }
 
   .section-intro {
     font-size: 0.88rem;
-    color: var(--muted);
-    font-weight: 300;
+    color: var(--secondary);
     max-width: 560px;
     margin-bottom: 1.5rem;
     line-height: 1.75;
   }
 
-  /* IMG */
-  .img-block {
-    margin: 1.5rem 0;
+  /* ── Tags ──────────────────────────── */
+  .tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+  .tag {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--accent2);
+    background: #1b2b52;
+    border: 1px solid #2e4a8a;
+    border-radius: 99px;
+    padding: 0.2rem 0.75rem;
+    text-decoration: none;
+    letter-spacing: 0.01em;
   }
-  .img-block img {
-    width: 100%;
-    display: block;
-    background: #000;
-  }
+
+  /* ── Images ────────────────────────── */
+  .img-block { margin: 1.5rem 0; }
+  .img-block img { width: 100%; display: block; border-radius: 4px; border: 1px solid var(--border); }
   .img-caption {
     font-size: 0.72rem;
     color: var(--muted);
@@ -258,29 +204,51 @@
   .img-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
+    gap: 12px;
     margin: 1.5rem 0;
-    background: var(--border);
   }
   .img-row-3 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
+    gap: 12px;
     margin: 1.5rem 0;
-    background: var(--border);
   }
-  .img-cell { background: var(--bg); }
-  .img-cell img { width: 100%; display: block; }
-  .img-cell .img-caption { padding: 0 0 0.5rem; }
+  .img-cell img { width: 100%; display: block; border-radius: 4px; border: 1px solid var(--border); }
+  .img-cell .img-caption { padding-bottom: 0.25rem; }
 
-  /* TABLE */
+  /* Small inline images with one shared caption */
+  .parts-imgs {
+    display: grid;
+    grid-template-columns: 0.6fr 1fr 1fr;
+    gap: 12px;
+    margin: 1.5rem 0 0.4rem;
+    align-items: end;
+  }
+  .parts-imgs img {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    max-height: 160px;
+    object-fit: contain;
+    background: #0d0d0f;
+  }
+  .parts-imgs-caption {
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-style: italic;
+    font-family: var(--serif);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── Table ─────────────────────────── */
   table { width: 100%; border-collapse: collapse; font-size: 0.83rem; margin-bottom: 1rem; }
   thead th {
     font-family: var(--mono);
     font-size: 0.62rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--light);
+    color: var(--muted);
     padding: 0.5rem 0.75rem;
     text-align: left;
     border-bottom: 1px solid var(--border);
@@ -289,29 +257,26 @@
   tbody td {
     padding: 0.55rem 0.75rem;
     border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    font-weight: 300;
+    color: var(--secondary);
   }
-  tbody td:first-child { color: var(--text); }
+  tbody td:first-child { color: var(--body); }
   tbody tr:last-child td { border-bottom: none; }
   .total-row td {
-    color: var(--text) !important;
-    font-weight: 500;
+    color: var(--body) !important;
+    font-weight: 600;
     border-top: 1px solid var(--border);
     font-family: var(--mono);
     font-size: 0.78rem;
   }
-
   .bom-note {
     font-size: 0.82rem;
-    color: var(--muted);
-    font-weight: 300;
+    color: var(--secondary);
     font-style: italic;
     font-family: var(--serif);
     margin-top: 0.75rem;
   }
 
-  /* PARTS LIST */
+  /* ── Parts list ────────────────────── */
   .parts-list { list-style: none; margin-bottom: 1.25rem; }
   .parts-list li {
     display: flex;
@@ -325,14 +290,14 @@
   .part-qty {
     font-family: var(--mono);
     font-size: 0.78rem;
-    color: var(--light);
+    color: var(--muted);
     width: 2rem;
     flex-shrink: 0;
     text-align: right;
   }
-  .part-name { color: var(--muted); font-weight: 300; }
+  .part-name { color: var(--secondary); }
 
-  /* STEPS */
+  /* ── Steps ─────────────────────────── */
   .steps-list { list-style: none; }
   .steps-list li {
     display: grid;
@@ -345,28 +310,27 @@
   .steps-list li:first-child { border-top: 1px solid var(--border); }
   .step-n {
     font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--light);
+    font-size: 0.65rem;
+    color: var(--muted);
     text-align: right;
     padding-top: 0.15rem;
   }
   .step-content strong {
     display: block;
     font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--text);
+    font-weight: 600;
+    color: var(--heading);
     margin-bottom: 0.25rem;
   }
   .step-content p {
     font-size: 0.83rem;
-    color: var(--muted);
-    font-weight: 300;
+    color: var(--secondary);
     line-height: 1.65;
     margin-bottom: 0.5rem;
   }
   .step-content p:last-child { margin-bottom: 0; }
 
-  /* DEPLOY */
+  /* ── Deploy ────────────────────────── */
   .deploy-list { list-style: none; }
   .deploy-list li {
     padding: 0.9rem 0;
@@ -375,59 +339,100 @@
   }
   .deploy-list li:first-child { border-top: 1px solid var(--border); }
   .deploy-list strong {
-    color: var(--text);
-    font-weight: 500;
+    color: var(--heading);
+    font-weight: 600;
     display: block;
     margin-bottom: 0.2rem;
-    font-size: 0.88rem;
   }
-  .deploy-list p { color: var(--muted); font-weight: 300; line-height: 1.65; }
+  .deploy-list p { color: var(--secondary); line-height: 1.65; }
 
-  /* ADAPT */
+  /* ── Adapt ─────────────────────────── */
   .adapt-list { list-style: none; }
   .adapt-list li {
     padding: 0.65rem 0;
     border-bottom: 1px solid var(--border);
     font-size: 0.85rem;
-    color: var(--muted);
-    font-weight: 300;
+    color: var(--secondary);
     display: grid;
-    grid-template-columns: 170px 1fr;
+    grid-template-columns: 160px 1fr;
     gap: 1rem;
   }
   .adapt-list li:first-child { border-top: 1px solid var(--border); }
-  .adapt-key { color: var(--text); font-weight: 400; font-size: 0.85rem; }
+  .adapt-key { color: var(--body); font-weight: 500; font-size: 0.85rem; }
 
-  /* CITE */
-  pre {
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    color: var(--muted);
-    line-height: 1.85;
-    overflow-x: auto;
-    border-left: 1px solid var(--border);
-    padding-left: 1.25rem;
-    white-space: pre;
+  /* ── Video ─────────────────────────── */
+  .video-wrap { margin-bottom: 2rem; }
+  .video-wrap video {
+    width: 100%;
+    max-height: 55vh;
+    display: block;
+    background: #000;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    cursor: pointer;
   }
+  .video-caption {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+  .video-controls { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .video-scrub {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+    accent-color: var(--accent);
+  }
+  .video-btns { display: flex; align-items: center; gap: 0.6rem; }
+  .video-btn {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--secondary);
+    background: none;
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+    transition: color 0.1s, border-color 0.1s;
+  }
+  .video-btn:hover { color: var(--body); border-color: var(--muted); }
+  .video-time { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-left: auto; }
 
+  /* ── Misc ──────────────────────────── */
   code {
     font-family: var(--mono);
     font-size: 0.82em;
-    color: var(--text);
+    color: var(--body);
     background: var(--surface);
     padding: 0.1em 0.35em;
+    border-radius: 2px;
   }
-
+  pre {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--secondary);
+    line-height: 1.85;
+    overflow-x: auto;
+    border-left: 2px solid var(--accent);
+    padding-left: 1.25rem;
+    white-space: pre;
+  }
   .note {
     font-size: 0.82rem;
-    color: var(--muted);
-    font-weight: 300;
+    color: var(--secondary);
     font-style: italic;
     font-family: var(--serif);
     margin: 1rem 0;
     line-height: 1.65;
   }
-
   .warn {
     font-size: 0.82rem;
     color: #cc8844;
@@ -437,14 +442,14 @@
     padding: 0.6rem 0.9rem;
     border: 1px solid #3a2a1a;
     background: #1a1208;
+    border-radius: 3px;
   }
-
   .footer-text {
     font-family: var(--serif);
     font-size: 0.82rem;
     font-style: italic;
-    color: var(--light);
-    margin-top: 3rem;
+    color: var(--muted);
+    margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
   }
@@ -454,15 +459,17 @@
     aside { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1rem; }
     main { padding: 2rem 1rem 4rem; }
     .adapt-list li { grid-template-columns: 1fr; gap: 0.2rem; }
-    .img-row, .img-row-3 { grid-template-columns: 1fr; }
+    .img-row, .img-row-3, .parts-imgs { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-<div style="background:#000; border-bottom:1px solid #222; padding:0.6rem 1.5rem; display:flex; align-items:center; justify-content:space-between; font-family:'Source Sans 3',sans-serif; font-size:0.8rem; position:sticky; top:0; z-index:200;">
-  <a href="index.html" style="color:#888; text-decoration:none; letter-spacing:0.05em;">&#8592; House of Dextra</a>
-  <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank" style="color:#888; text-decoration:none; letter-spacing:0.05em;">GitHub &#8599;</a>
+
+<div class="topbar">
+  <a href="index.html">&#8592; House of Dextra</a>
+  <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank">GitHub &#8599;</a>
 </div>
+
 <div class="page">
 
 <aside>
@@ -489,100 +496,23 @@
 
 <main>
 
-  <!-- VIDEO -->
-  <div class="video-wrap">
-    <video id="buildVideo" muted playsinline autoplay style="cursor:pointer;">
-      <source src="figures/full_build_video.mp4" type="video/mp4">
-    </video>
-    <div class="video-controls">
-      <input type="range" class="video-scrub" id="videoScrub" min="0" step="0.01" value="0">
-      <div class="video-btns">
-        <button class="video-btn" id="videoPlayPause">play</button>
-        <button class="video-btn" id="videoStop">stop</button>
-        <span class="video-time" id="videoTime">0:00 / 0:00</span>
-      </div>
-    </div>
-    <p class="video-caption">Overview — full build walkthrough</p>
-  </div>
-
-  <script>
-    (function() {
-      const video = document.getElementById('buildVideo');
-      const scrub = document.getElementById('videoScrub');
-      const playPause = document.getElementById('videoPlayPause');
-      const stop = document.getElementById('videoStop');
-      const timeDisplay = document.getElementById('videoTime');
-      const TOTAL = 345; // 5:45 fallback
-
-      function fmt(s) {
-        if (!isFinite(s)) s = 0;
-        const m = Math.floor(s / 60);
-        const sec = Math.floor(s % 60);
-        return m + ':' + String(sec).padStart(2, '0');
-      }
-
-      function setDuration(d) {
-        scrub.max = d;
-        timeDisplay.textContent = fmt(video.currentTime) + ' / ' + fmt(d);
-      }
-
-      // Set fallback immediately, update when metadata arrives
-      setDuration(TOTAL);
-
-      video.addEventListener('loadedmetadata', () => {
-        const d = isFinite(video.duration) && video.duration > 0 ? video.duration : TOTAL;
-        setDuration(d);
-      });
-
-      // Some browsers need durationchange too
-      video.addEventListener('durationchange', () => {
-        if (isFinite(video.duration) && video.duration > 0) setDuration(video.duration);
-      });
-
-      video.addEventListener('timeupdate', () => {
-        const d = isFinite(video.duration) && video.duration > 0 ? video.duration : TOTAL;
-        scrub.value = video.currentTime;
-        timeDisplay.textContent = fmt(video.currentTime) + ' / ' + fmt(d);
-      });
-
-      video.addEventListener('play', () => { playPause.textContent = 'pause'; });
-      video.addEventListener('pause', () => { playPause.textContent = 'play'; });
-      video.addEventListener('ended', () => { playPause.textContent = 'play'; });
-
-      // Click on video to play/pause
-      video.addEventListener('click', () => {
-        video.paused ? video.play() : video.pause();
-      });
-
-      scrub.addEventListener('input', () => {
-        video.currentTime = scrub.value;
-      });
-
-      playPause.addEventListener('click', () => {
-        video.paused ? video.play() : video.pause();
-      });
-
-      stop.addEventListener('click', () => {
-        video.pause();
-        video.currentTime = 0;
-      });
-    })();
-  </script>
-
   <!-- INTRO -->
-  <div class="intro" id="overview">
-    <h1><em>House of Dextra</em> — Build Guide</h1>
-    <p>You can build multiple hands from one platform. This guide covers how to build a modular robot hand and how to alter it to build similar hands. Every aspect of the hand is customizable: palm geometry, finger placement, link lengths, fingertip shape, degrees of freedom per finger, and total number of fingers. Mix and match any combination of these to suit your application.</p>
-    <p>All STL files, SolidWorks parts, and control code are available on <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank">GitHub</a>.</p>
+  <div class="section" id="overview">
+
+    <h1><em>House of Dextra</em>: Build Guide</h1>
+
+    <!-- Tags at top of page, pill style -->
     <div class="tags">
       <span class="tag">Modular</span>
-      <span class="tag">3-4 hrs first build</span>
-      <span class="tag">5-finger direct drive</span>
+      <span class="tag">3 to 4 hrs first build</span>
+      <span class="tag">Direct drive</span>
       <span class="tag">Sim-to-real</span>
       <span class="tag">3, 4, 5, 6 fingers</span>
     </div>
 
-    <div class="img-row-3" style="margin-top:2rem;">
+    <p class="section-intro">Build multiple hand variants from one platform. Customizable: palm geometry, finger placement, link lengths, fingertip shape, degrees of freedom, and finger count. STL files, SolidWorks parts, and control code on <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank">GitHub</a>.</p>
+
+    <div class="img-row-3">
       <div class="img-cell">
         <img src="figures/3_finger.png" alt="3-finger variant">
         <p class="img-caption">3-finger variant</p>
@@ -596,18 +526,13 @@
         <p class="img-caption">5-finger variant</p>
       </div>
     </div>
-
-    <div class="img-block">
-      <img src="figures/Built-Variants.png" alt="Built hand variants manipulating objects">
-      <p class="img-caption">Built variants — hands manipulating real-world objects</p>
-    </div>
   </div>
 
   <!-- BOM -->
   <div class="section" id="bom">
     <div class="section-label">Step 01</div>
     <h2>Bill of Materials</h2>
-    <p class="section-intro">Everything needed for the 5-finger baseline. Scale servo count down for fewer fingers: 16 for 4-finger, 12 for 3-finger, etc.</p>
+    <p class="section-intro">Everything needed for the 5-finger baseline. Scale servo count down for fewer fingers: 16 for 4-finger, 12 for 3-finger. <a href="https://www.robotis.us/house-of-dextra-bundle/?searchid=218037&search_query=dextra" target="_blank">Order the full Dynamixel bundle here ↗</a></p>
 
     <table>
       <thead>
@@ -626,8 +551,8 @@
       </tbody>
     </table>
 
-    <p class="bom-note">Additional tools: electrical tape, screwdriver kit, micro cutters (~$31). And a 3D printer that can print PLA.</p>
-    <p class="bom-note">Optional: <a href="https://www.robotis.us/hnx330-n101-set/" target="_blank">HN-X330-N101 servo horns</a> for each motor for extra-sturdy joints. We left one side free-floating with a printed spacer (Idler STL), which works fine.</p>
+    <p class="bom-note">Additional tools: electrical tape, screwdriver kit, micro cutters (~$31). A 3D printer is required.</p>
+    <p class="bom-note">Optional: <a href="https://www.robotis.us/hnx330-n101-set/" target="_blank">HN-X330-N101 servo horns</a> for extra-sturdy joints. One side can be left free-floating with the printed Idler spacer.</p>
   </div>
 
   <!-- PRINT -->
@@ -645,34 +570,20 @@
       <li><span class="part-qty">15</span><span class="part-name">Servo Washers, Small</span></li>
     </ul>
 
-    <p class="note">In your slicer, select PLA Basic and enable tree(auto) support type with threshold angle ~30. When done, remove all supports with micro cutters before assembling.</p>
-    <p class="note">Each component bolts together with four bolts or less. Customize any part by editing the SolidWorks source and exporting as STL. Daisy-chain up to 6 motors per finger; the included expansion board setup supports up to 6 fingers. Add another expansion board for up to 10.</p>
+    <p class="note">In your slicer: select PLA Basic, enable tree (auto) supports at ~30° threshold. Remove supports with micro cutters before assembly.</p>
+    <p class="note">Each component bolts together with four bolts or fewer. Daisy-chain up to 6 motors per finger; supports up to 6 fingers. Add another expansion board for up to 10.</p>
 
-    <div class="img-row" style="margin-top:1.5rem;">
-      <div class="img-cell">
-        <img src="figures/parts_abstract.png" alt="Modular parts overview">
-        <p class="img-caption">Modular parts overview — palm, linkages, and mounts</p>
-      </div>
-      <div class="img-cell">
-        <img src="figures/5_Finger_expansion.png" alt="5-finger expansion render">
-        <p class="img-caption">5-finger expansion — modular part breakdown</p>
-      </div>
+    <!-- Three part images smaller, inline, single caption -->
+    <div class="parts-imgs">
+      <img src="figures/fingertip.png" alt="Fingertip part">
+      <img src="figures/finger_assem.png" alt="Single finger assembled servo chain">
+      <img src="figures/linkage_combined.png" alt="Mechanical linkage examples">
     </div>
+    <p class="parts-imgs-caption">Left: fingertip. Center: single finger servo chain. Right: mechanical linkages (alter middle slab for custom lengths).</p>
 
     <div class="img-block">
-      <img src="figures/finger_assem.png" alt="Finger assembly chain">
-      <p class="img-caption">Single finger — assembled servo chain</p>
-    </div>
-
-    <div style="display:flex; gap:1rem; margin:1.5rem 0; align-items:flex-start;">
-      <div style="flex:1;">
-        <img src="figures/fingertip.png" alt="Fingertip part" style="width:100%; display:block;">
-        <p class="img-caption">Fingertip — connects on top of lever</p>
-      </div>
-      <div style="flex:1.6;">
-        <img src="figures/linkage_combined.png" alt="Mechanical linkage examples" style="width:100%; display:block;">
-        <p class="img-caption">Mechanical linkages — top mount, middle slab, and bottom link. Alter the middle slab for custom finger lengths.</p>
-      </div>
+      <img src="figures/5_Finger_expansion.png" alt="5-finger expansion render">
+      <p class="img-caption">5-finger expansion: modular part breakdown</p>
     </div>
   </div>
 
@@ -688,7 +599,7 @@
         <span class="step-n">00</span>
         <div class="step-content">
           <strong>Print all STLs</strong>
-          <p>Print all parts listed in the Print Guide above before beginning assembly. Remove all supports with micro cutters. Have all printed parts, servo motors, cables, bolts, and tools ready before starting.</p>
+          <p>Print all parts from the Print Guide. Remove supports with micro cutters. Have all parts, servos, cables, and bolts ready before starting.</p>
         </div>
       </li>
 
@@ -704,7 +615,7 @@
         <span class="step-n">02</span>
         <div class="step-content">
           <strong>Build the finger chain</strong>
-          <p>Bolt servos into each servo holder with the long side down and wire ports exposed. On the bottom, place the next servo in the same orientation, then bolt 4 bolts (included with the Dynamixel) onto the side with the servo horn.</p>
+          <p>Bolt servos into each servo holder with the long side down and wire ports exposed. Place the next servo in the same orientation, then bolt 4 bolts onto the servo horn side.</p>
         </div>
       </li>
 
@@ -712,7 +623,7 @@
         <span class="step-n">03</span>
         <div class="step-content">
           <strong>Fit the washers</strong>
-          <p>Snap one large and one small washer together (small inside large). Slide onto the free side of each servo in line with the lever. Leave free-floating, or use Dynamixel motor horns for a more rigid mount.</p>
+          <p>Snap one large and one small washer together (small inside large). Slide onto the free side of each servo in line with the lever. Leave free-floating or use Dynamixel motor horns for a rigid mount.</p>
         </div>
       </li>
 
@@ -721,10 +632,6 @@
         <div class="step-content">
           <strong>Attach the fingertip</strong>
           <p>Repeat the same washer and bolt process to mount the fingertip to the top of the finger.</p>
-          <div class="img-block" style="margin-top:0.75rem;">
-            <img src="figures/Five_Finger_Render.png" alt="Five finger render">
-            <p class="img-caption">Render of completed 5-finger hand</p>
-          </div>
         </div>
       </li>
 
@@ -732,7 +639,7 @@
         <span class="step-n">05</span>
         <div class="step-content">
           <strong>Repeat for all fingers</strong>
-          <p>Repeat steps 01-04 for each finger in your chosen palm layout. The default hand uses 5 fingers. For a 3-finger hand repeat 3 times, for a 4-finger hand repeat 4 times, and so on. Each finger is assembled identically regardless of position on the palm.</p>
+          <p>Repeat steps 01 to 04 for each finger. Each finger is assembled identically regardless of palm position.</p>
           <div class="img-row" style="margin-top:0.75rem;">
             <div class="img-cell">
               <img src="figures/3_finger.png" alt="3-finger layout">
@@ -750,7 +657,7 @@
         <span class="step-n">06</span>
         <div class="step-content">
           <strong>Wire the fingers</strong>
-          <p>Connect the wire from the Dynamixel box to the vertical base motor, then to the bottom port of the bottommost horizontal motor. Connect top to bottom up the chain. Secure wires with electrical tape.</p>
+          <p>Connect wire from the Dynamixel box to the vertical base motor, then up through each motor in the chain. Secure wires with electrical tape.</p>
         </div>
       </li>
 
@@ -758,15 +665,16 @@
         <span class="step-n">07</span>
         <div class="step-content">
           <strong>Connect electronics</strong>
-          <p>Connect four fingers to the expansion board (one wire each from the bottommost motor). Connect the fifth finger directly to the U2D2 board. Bolt the U2D2 communication hub to the U2D2 power board, then connect the expansion board to the U2D2 with one cable.</p>
-          <p>Order of finger connection and placement on the board does not matter — as long as all fingers are plugged in to the board, either directly or through the expansion board.</p>
-          <div class="img-block" style="margin-top:0.75rem;">
-            <img src="figures/Anthro_Baseline.png" alt="Anthropomorphic baseline hand holding strawberry">
-            <p class="img-caption">Completed anthropomorphic baseline hand</p>
-          </div>
-          <div class="img-block">
-            <img src="figures/Robot_Hand.png" alt="Completed robot hand">
-            <p class="img-caption">Completed 5-finger hand, front view</p>
+          <p>Connect four fingers to the expansion board (one wire each from the bottommost motor). Connect the fifth finger directly to the U2D2. Bolt the U2D2 hub to the power board, then connect the expansion board with one cable. Finger order on the board does not matter.</p>
+          <div class="img-row" style="margin-top:0.75rem;">
+            <div class="img-cell">
+              <img src="figures/Anthro_Baseline.png" alt="Completed baseline hand">
+              <p class="img-caption">Completed anthropomorphic baseline hand</p>
+            </div>
+            <div class="img-cell">
+              <img src="figures/Robot_Hand.png" alt="Completed 5-finger hand">
+              <p class="img-caption">Completed 5-finger hand, front view</p>
+            </div>
           </div>
         </div>
       </li>
@@ -782,10 +690,22 @@
 
     </ul>
 
-    <div class="img-block" style="margin-top:1.5rem;">
-      <img src="figures/RealWorldObjects.png" alt="Hand with real world objects">
-      <p class="img-caption">Completed hand alongside the real-world object set used for manipulation testing</p>
+    <!-- Build video moved to bottom of assembly -->
+    <div class="video-wrap" style="margin-top: 2rem;">
+      <video id="buildVideo" muted playsinline autoplay style="cursor:pointer;">
+        <source src="videos/full_build_video.mp4" type="video/mp4">
+      </video>
+      <div class="video-controls">
+        <input type="range" class="video-scrub" id="videoScrub" min="0" step="0.01" value="0">
+        <div class="video-btns">
+          <button class="video-btn" id="videoPlayPause">play</button>
+          <button class="video-btn" id="videoStop">stop</button>
+          <span class="video-time" id="videoTime">0:00 / 0:00</span>
+        </div>
+      </div>
+      <p class="video-caption">Full build walkthrough</p>
     </div>
+
   </div>
 
   <!-- DEPLOY -->
@@ -796,23 +716,23 @@
     <ul class="deploy-list">
       <li>
         <strong>ID each motor</strong>
-        <p>Number motors 1-20 starting with the thumb's vertical motor as ID 1, working up and around each finger. Re-ID via the Options menu in Dynamixel Wizard.</p>
+        <p>Number motors 1 to 20 starting with the thumb's vertical motor. Re-ID via the Options menu in Dynamixel Wizard.</p>
       </li>
       <li>
         <strong>Verify movement</strong>
-        <p>Select each motor, enable the torque slider, and move the dial to confirm response. Debug non-moving motors by checking cable connections.</p>
+        <p>Select each motor, enable the torque slider, and move the dial to confirm response. Debug by checking cable connections.</p>
       </li>
       <li>
         <strong>Tune PID values</strong>
-        <p>Go to Options for each motor and tune proportional, integral, and derivative gains. Starting values are in <code>config/anthro_standard.yaml</code> in the repo.</p>
+        <p>Tune proportional, integral, and derivative gains in Options. Starting values are in <code>config/anthro_standard.yaml</code>.</p>
       </li>
       <li>
         <strong>Set joint limits</strong>
-        <p>Record the servo tick at each desired mechanical limit and enter them as <code>limit_offsets</code> in the config file. Defaults are provided for the baseline hand.</p>
+        <p>Record the servo tick at each mechanical limit and enter as <code>limit_offsets</code> in the config. Defaults provided for the baseline hand.</p>
       </li>
       <li>
         <strong>Run the test script</strong>
-        <p>Clone the <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank">GitHub repo</a> and run <code>python test.py</code>. Each finger should wave inward and return to rest in sequence. If all fingers move, you are done.</p>
+        <p>Clone the <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank">repo</a> and run <code>python test.py</code>. Each finger should wave inward and return to rest.</p>
       </li>
     </ul>
   </div>
@@ -821,21 +741,16 @@
   <div class="section" id="adapt">
     <div class="section-label">Going Further</div>
     <h2>How to Adapt</h2>
-    <p class="section-intro">All components connect and disconnect the same way as the original assembly. To build your own hand, alter any of the SolidWorks files included in the repository. When the desired part is altered, combine it with a top and bottom link and reprint it as an STL. If altering the palm, copy the tolerances for motor mounting to the desired new locations.</p>
+    <p class="section-intro">Alter any SolidWorks file in the repo, combine with top and bottom links, and reprint as STL. All components connect the same way as the original build.</p>
 
     <ul class="adapt-list">
-      <li><span class="adapt-key">Add / remove fingers</span><span>Do so in motor ID order to avoid re-IDing the remaining motors.</span></li>
+      <li><span class="adapt-key">Add / remove fingers</span><span>Do so in motor ID order to avoid re-IDing remaining motors.</span></li>
       <li><span class="adapt-key">Custom palms</span><span>Copy servo mounting bracket tolerances from the SolidWorks part onto any new geometry and export as STL.</span></li>
       <li><span class="adapt-key">Custom fingertips</span><span>Design any shape and connect on top of a lever. Soft, rigid, or sensored tips all attach the same way.</span></li>
-      <li><span class="adapt-key">Longer segments</span><span>Edit the middle slab pieces in SolidWorks to any length, combine with top and bottom links, and reprint as STL. The bolting pattern stays the same.</span></li>
+      <li><span class="adapt-key">Longer segments</span><span>Edit the middle slab pieces to any length, combine with top and bottom links, and reprint. The bolting pattern stays the same.</span></li>
       <li><span class="adapt-key">More fingers</span><span>Add another expansion board for up to 10 fingers total.</span></li>
       <li><span class="adapt-key">Different materials</span><span>PETG for stiffer links, TPU for compliant fingertips.</span></li>
     </ul>
-
-    <div class="img-block" style="margin-top:1.5rem;">
-      <img src="figures/5_Finger_expansion.png" alt="Modular part variants">
-      <p class="img-caption">Modular part variants — swap fingertip, linkage, and base components freely</p>
-    </div>
   </div>
 
   <!-- CITATION -->
@@ -859,5 +774,47 @@
 
 </main>
 </div>
+
+<script>
+(function() {
+  const video = document.getElementById('buildVideo');
+  const scrub = document.getElementById('videoScrub');
+  const playPause = document.getElementById('videoPlayPause');
+  const stop = document.getElementById('videoStop');
+  const timeDisplay = document.getElementById('videoTime');
+  const TOTAL = 345;
+
+  function fmt(s) {
+    if (!isFinite(s)) s = 0;
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ':' + String(sec).padStart(2, '0');
+  }
+  function setDuration(d) {
+    scrub.max = d;
+    timeDisplay.textContent = fmt(video.currentTime) + ' / ' + fmt(d);
+  }
+  setDuration(TOTAL);
+  video.addEventListener('loadedmetadata', () => {
+    const d = isFinite(video.duration) && video.duration > 0 ? video.duration : TOTAL;
+    setDuration(d);
+  });
+  video.addEventListener('durationchange', () => {
+    if (isFinite(video.duration) && video.duration > 0) setDuration(video.duration);
+  });
+  video.addEventListener('timeupdate', () => {
+    const d = isFinite(video.duration) && video.duration > 0 ? video.duration : TOTAL;
+    scrub.value = video.currentTime;
+    timeDisplay.textContent = fmt(video.currentTime) + ' / ' + fmt(d);
+  });
+  video.addEventListener('play', () => { playPause.textContent = 'pause'; });
+  video.addEventListener('pause', () => { playPause.textContent = 'play'; });
+  video.addEventListener('ended', () => { playPause.textContent = 'play'; });
+  video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
+  scrub.addEventListener('input', () => { video.currentTime = scrub.value; });
+  playPause.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
+  stop.addEventListener('click', () => { video.pause(); video.currentTime = 0; });
+})();
+</script>
 </body>
 </html>

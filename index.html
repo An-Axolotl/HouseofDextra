@@ -3,817 +3,587 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House of Dextra: Cross Embodied Co-Design for Dexterity</title>
+    <title>House of Dextra: Cross-Embodied Co-Design for Dexterous Hands</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:       #0d0d0f;
+            --surface:  #141416;
+            --border:   #242428;
+            --muted:    #55555e;
+            --secondary:#9898a8;
+            --body:     #c8c8d8;
+            --heading:  #f0f0f4;
+            --accent:   #7b9de8;
+            --accent2:  #a8c4ff;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Crimson Pro', Georgia, serif;
-            line-height: 1.75;
-            color: #e8e8e8;
-            background: #1a1a1e;
+            font-family: 'Noto Sans', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--body);
+            line-height: 1.7;
+            font-size: 16px;
         }
 
-        /* Header Section */
-        .header {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 70px 20px 50px;
+        /* ── Layout ─────────────────────────────────────── */
+        .page { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        .page-wide { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── Header ─────────────────────────────────────── */
+        header {
+            padding: 64px 24px 40px;
             text-align: center;
-            border-bottom: 1px solid #2f2f35;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .logo {
-            width: 250px;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            background-color: white;
-            border-radius: 5%;
+        .venue-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 3px;
+            padding: 3px 10px;
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 4.5em;
-            font-weight: 600;
-            margin-bottom: 25px;
-            line-height: 1.2;
-            color: #ffffff;
-            font-family: 'Crimson Pro', serif;
+            font-family: 'Noto Serif', Georgia, serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 400;
+            color: var(--heading);
+            line-height: 1.25;
+            margin-bottom: 28px;
             letter-spacing: -0.01em;
         }
 
-        .subtitle {
-            font-size: 1.5em;
-            color: #b4b4b4;
-            margin-bottom: 30px;
-            font-weight: 400;
-            font-style: italic;
-            line-height: 1.5;
+        /* Authors inline */
+        .authors-inline {
+            font-size: 1rem;
+            color: var(--body);
+            margin-bottom: 8px;
+            line-height: 1.8;
         }
-
-        /* Hero Section */
-        .hero {
-            max-width: 1200px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
-            position: relative;
-        }
-
-        .hero video,
-        .hero img {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-            border: 1px solid #35353b;
-        }
-        
-        .video-labels {
-            position: absolute;
-            top: 30px;
-            left: 0;
-            right: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 300px;
-        }
-        
-        .video-label {
-            background: rgba(0, 0, 0, 0.7);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            padding: 6px 16px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 1.1em;
-            letter-spacing: 0.02em;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Content Section */
-        .content {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .content p {
-            font-size: 1.2em;
-            line-height: 1.9;
-            margin-bottom: 24px;
-            color: #d8d8d8;
-        }
-        
-        .content ul {
-	    font-size: 1.2em;
-	    line-height: 1.9;
-	    margin-bottom: 24px;
-	    color: #d8d8d8;
-	    padding-left: 40px;
-	}
-
-	.content li {
-	    margin-bottom: 16px;
-	}
-
-        /* Links Section */
-        .links {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .link-button {
-            padding: 13px 35px;
-            background: linear-gradient(135deg, #3b5998 0%, #2d4373 100%);
-            color: white;
+        .authors-inline a {
+            color: var(--accent2);
             text-decoration: none;
-            border-radius: 6px;
+        }
+        .authors-inline a:hover { text-decoration: underline; }
+
+        .affil-line {
+            font-size: 0.875rem;
+            color: var(--secondary);
+            margin-bottom: 28px;
+        }
+
+        /* Links row */
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .link-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 18px;
+            border-radius: 4px;
+            font-size: 0.875rem;
             font-weight: 500;
-            font-size: 0.95em;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.02em;
-            box-shadow: 0 4px 20px rgba(59,89,152,0.3);
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            border: 1px solid var(--border);
+            color: var(--body);
+            background: var(--surface);
         }
+        .link-pill:hover {
+            background: #1e1e24;
+            border-color: var(--muted);
+            transform: translateY(-1px);
+        }
+        .link-pill.primary {
+            background: #1b2b52;
+            border-color: #2e4a8a;
+            color: var(--accent2);
+        }
+        .link-pill.primary:hover { background: #22366a; }
 
-        .link-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(59,89,152,0.4);
+        /* ── Hero video ─────────────────────────────────── */
+        .hero-wrap {
+            max-width: 800px;
+            margin: 48px auto 0;
+            padding: 0 24px;
         }
-
-        .link-button.secondary {
-            background: linear-gradient(135deg, #4a4a52 0%, #35353b 100%);
-            box-shadow: 0 4px 20px rgba(74,74,82,0.3);
+        .hero-wrap video {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            display: block;
         }
-
-        .link-button.secondary:hover {
-            box-shadow: 0 6px 30px rgba(74,74,82,0.4);
-        }
-
-        /* Section Headers */
-        .section {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 20px;
-        }
-        
-        .section img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .section h2 {
-            font-size: 3.0em;
-            margin-bottom: 45px;
+        .hero-caption {
             text-align: center;
-            font-weight: 600;
-            color: #ffffff;
-            font-family: 'Crimson Pro', serif;
+            font-size: 0.85rem;
+            color: var(--secondary);
+            margin-top: 10px;
+            font-style: italic;
         }
 
-        /* Grid Layout for Demonstrations */
+        /* ── Section ─────────────────────────────────────── */
+        section { padding: 60px 0; border-top: 1px solid var(--border); }
+
+        h2 {
+            font-family: 'Noto Serif', Georgia, serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+            font-weight: 400;
+            color: var(--heading);
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        /* ── Abstract ────────────────────────────────────── */
+        .abstract-text {
+            font-family: 'Noto Serif', Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--body);
+        }
+        .abstract-text p + p { margin-top: 1.2em; text-indent: 1.5em; }
+
+        /* ── Paper preview ────────────────────────────────── */
+        .paper-block {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+        }
+        .paper-thumb {
+            flex: 0 0 200px;
+        }
+        .paper-thumb img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .paper-meta { flex: 1; }
+        .paper-meta h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--heading);
+            margin-bottom: 8px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+        .paper-meta p { font-size: 0.9rem; color: var(--secondary); margin-bottom: 14px; line-height: 1.6; }
+        .paper-meta a { color: var(--accent); text-decoration: none; }
+        .paper-meta a:hover { text-decoration: underline; }
+
+        /* ── Explainer video ─────────────────────────────── */
+        .explainer-wrap video {
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .caption-note {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .caption-note code {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85em;
+            color: var(--secondary);
+        }
+
+        /* ── How It Works ────────────────────────────────── */
+        .method-text {
+            font-size: 0.975rem;
+            line-height: 1.8;
+            color: var(--body);
+            margin-bottom: 20px;
+        }
+        .method-img {
+            display: block;
+            margin: 24px auto 0;
+            max-width: 55%;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        /* ── Demo grid ────────────────────────────────────── */
         .demo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
+        @media (max-width: 680px) { .demo-grid { grid-template-columns: 1fr; } }
 
-        .demo-item {
-            text-align: center;
-            background: #25252b;
-            border-radius: 10px;
-            padding: 25px;
-            border: 1px solid #35353b;
-            transition: all 0.3s;
+        .demo-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
         }
-
-        .demo-item:hover {
-            border-color: #5a7bb8;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        .demo-card video {
+            width: 100%;
+            display: block;
         }
-
-        .demo-item h3 {
-            font-size: 1.4em;
-            margin-bottom: 18px;
+        .demo-card .card-body {
+            padding: 14px 16px;
+        }
+        .demo-card h3 {
+            font-size: 0.875rem;
             font-weight: 600;
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            color: var(--heading);
+            margin-bottom: 6px;
+            font-family: 'Noto Sans', sans-serif;
+        }
+        .demo-card p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            line-height: 1.55;
         }
 
-        .demo-item video,
-        .demo-item img {
+        /* ── Generalization ───────────────────────────────── */
+        .gen-img {
+            display: block;
             width: 100%;
             border-radius: 6px;
-            margin-bottom: 22px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid #35353b;
-        }
-
-        .demo-item p {
-            color: #b4b4b4;
-            line-height: 1.75;
-            font-size: 1em;
-        }
-
-        /* Feature Highlights */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .feature {
-            padding: 30px;
-            background: #25252b;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #35353b;
-            transition: all 0.3s;
-        }
-
-        .feature:hover {
-            border-color: #5a7bb8;
-            transform: translateY(-2px);
-        }
-
-        .feature h3 {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            color: #6b8fd9;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .feature p {
-            color: #b4b4b4;
-            line-height: 1.6;
-        }
-
-        /* Code Block */
-        .code-block {
-            background: #25252b;
-            border: 1px solid #35353b;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 30px 0;
-            overflow-x: auto;
-        }
-
-        .code-block pre {
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9em;
-            line-height: 1.6;
-            color: #d8d8d8;
-        }
-
-        /* Authors Section */
-        .authors {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .authors h3 {
-            font-size: 1.5em;
+            border: 1px solid var(--border);
             margin-bottom: 20px;
-            color: #ffffff;
-            font-family: 'Crimson Pro', serif;
         }
+        .gen-text { font-size: 0.975rem; line-height: 1.8; color: var(--body); }
 
-        .author-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
+        /* ── Hardware ─────────────────────────────────────── */
+        .hw-img {
+            display: block;
+            width: 100%;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .hw-text { font-size: 0.975rem; line-height: 1.8; color: var(--body); }
+
+        .tip {
             margin-top: 20px;
-        }
-        
-        @media (max-width: 480px) {
-            .author-list {
-                gap: 20px;
-            }
-            
-            .author img {
-                width: 80px;
-                height: 80px;
-            }
-        }
-
-        .author {
-            text-align: center;
-        }
-
-        .author img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-            object-fit: cover;
-            border: 2px solid #35353b;
-        }
-
-        .author a {
-            color: #6b8fd9;
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .author a:hover {
-            text-decoration: underline;
-        }
-
-        .affiliations {
-            margin-top: 20px;
-            color: #b4b4b4;
-            font-size: 0.9em;
-        }
-
-        /* Citation Block */
-        .citation {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 25px;
-            background: #25252b;
-            border-left: 4px solid #5a7bb8;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.85em;
-            overflow-x: auto;
-            color: #e0e0e0;
-            border-radius: 4px;
-        }
-
-        /* Footer */
-        footer {
-            max-width: 1200px;
-            margin: 80px auto 40px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #999;
-            border-top: 1px solid #35353b;
-        }
-
-        footer a {
-            color: #6b8fd9;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Pro Tip Box */
-        .tip-box {
-            background: rgba(255, 193, 7, 0.1);
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 4px;
-        }
-
-        .tip-box-content {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .tip-box strong {
-            color: #ffc107;
-        }
-
-        .tip-box p {
-            margin-top: 8px;
-            color: #d8d8d8;
+            padding: 14px 18px;
+            background: rgba(255,193,7,0.07);
+            border-left: 3px solid #ffc107;
+            border-radius: 3px;
+            font-size: 0.875rem;
+            color: var(--body);
             line-height: 1.6;
         }
+        .tip a { color: #ffc107; text-decoration: none; }
+        .tip a:hover { text-decoration: underline; }
 
-        /* Video Container for Responsive YouTube Embed */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #35353b;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        /* ── Team / Authors ───────────────────────────────── */
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px 32px;
+            margin-bottom: 20px;
+        }
+        .author-card { text-align: center; width: 90px; }
+        .author-card img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            display: block;
+            margin: 0 auto 8px;
+        }
+        .author-card a, .author-card span {
+            font-size: 0.78rem;
+            color: var(--accent2);
+            text-decoration: none;
+            line-height: 1.4;
+        }
+        .author-card a:hover { text-decoration: underline; }
+        .author-card sup { font-size: 0.65em; color: var(--secondary); }
+        .affil-note { text-align: center; font-size: 0.8rem; color: var(--secondary); }
+
+        /* ── Citation ─────────────────────────────────────── */
+        .bibtex {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px 24px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--body);
+            overflow-x: auto;
+            line-height: 1.7;
+            white-space: pre;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* ── Footer ───────────────────────────────────────── */
+        footer {
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
         }
+        footer a { color: var(--muted); }
+        footer a:hover { color: var(--secondary); }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-            }
-
-            .subtitle {
-                font-size: 1.2em;
-            }
-
-            .section h2 {
-                font-size: 2em;
-            }
-
-            .demo-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .logo {
-                width: 180px;
-            }
-            
-            .content p,
-            .content ul {
-                font-size: 1.1em;
-            }
-            
-            .video-labels {
-                gap: 150px;
-            }
-            
-            .video-label {
-                font-size: 0.9em;
-                padding: 4px 12px;
-            }
-            
-            .header {
-                padding: 50px 20px 40px;
-            }
-            
-            .hero {
-                padding: 0 10px;
-            }
-            
-            .section {
-                margin: 60px auto;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2em;
-            }
-            
-            .subtitle {
-                font-size: 1em;
-            }
-            
-            .section h2 {
-                font-size: 1.6em;
-            }
-            
-            .logo {
-                width: 150px;
-            }
-            
-            .content p,
-            .content ul {
-                font-size: 1em;
-            }
-            
-            .link-button {
-                width: 100%;
-                padding: 12px 20px;
-            }
-            
-            .feature h3 {
-                font-size: 1.1em;
-            }
-            
-            .video-labels {
-                gap: 100px;
-                top: 20px;
-            }
-            
-            .video-label {
-                font-size: 0.8em;
-                padding: 4px 10px;
-            }
-            
-            .header {
-                padding: 40px 15px 30px;
-            }
-            
-            .content {
-                padding: 30px 15px;
-            }
-            
-            .section {
-                margin: 50px auto;
-            }
+        /* ── Responsive ───────────────────────────────────── */
+        @media (max-width: 620px) {
+            .paper-block { flex-direction: column; }
+            .paper-thumb { flex: none; width: 100%; max-width: 260px; }
+            .method-img { max-width: 90%; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <img src="videos/UCSD-logo.png" alt="Institution Logo" class="logo">
-        <h1>House of Dextra: Cross-Embodied Co-Design for Dexterous Hands</h1>
-        <p class="subtitle">Complementary Design and Control for Dexterity</p>
+
+<!-- ── Header ───────────────────────────────────────────── -->
+<header>
+    <div class="venue-tag">ICLR 2026</div>
+    <h1>House of Dextra: Cross-Embodied Co-Design for Dexterous Hands</h1>
+
+    <div class="authors-inline">
+        <a href="https://an-axolotl.github.io/fay-robotics.github.io/">Kehlani Fay</a><sup>1</sup>,&nbsp;
+        <a href="https://www.linkedin.com/in/darin-djapri-a91143214">Darin Djapri</a><sup>1</sup>,&nbsp;
+        <a href="https://anyazorin.com/">Anya Zorin</a><sup>1</sup>,&nbsp;
+        <a href="https://me.ucsb.edu/people/james-clinton">James Clinton</a><sup>2</sup>,&nbsp;
+        Ali El Lahib<sup>1</sup>,&nbsp;
+        <a href="https://cseweb.ucsd.edu/~haosu/">Hao Su</a><sup>1</sup>,&nbsp;
+        <a href="https://tolley.eng.ucsd.edu/">Michael T. Tolley</a><sup>1</sup>,&nbsp;
+        <a href="https://yswhynot.github.io/">Sha Yi</a><sup>1</sup>,&nbsp;
+        <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup>
     </div>
 
-    <!-- Hero Section -->
-    <div class="hero">
-        <video autoplay muted loop playsinline>
-            <source src="videos/video.mp4" type="video/mp4">
-        </video>
-        <div class="video-labels">
-            <div class="video-label">Co-Design Blind Policy</div>
-            <div class="video-label">Baseline</div>
-        </div>
+    <div class="affil-line">
+        <sup>1</sup>UC San Diego &nbsp;&nbsp;
+        <sup>2</sup>UC Santa Barbara
     </div>
 
-    <!-- Abstract -->
-    <div class="content">
-        <p>
-            <p>
-    We present <strong>House of Dextra </strong> – a novel approach for generating robot hands and dexterous control policies for real world deployment.
-    Our method achieves dexterous manipulation by generating novel robot hand designs and evlauting with design conditioned, cross-embodied control - helping co-design for complex manipulation become more computationally tractable.
-    We demonstrate dexterity by comparing four co-designed robot hands on unseen objects for in-hand rotation. Grasping, flipping, and in-hand rotation are tested in simulation. We achieve zero-shot sim-to-real transfer through physically grounded design grammars on a new, modular robot hand platform.
-</p>
-        </p>
+    <div class="link-row">
+        <a href="https://arxiv.org/abs/2512.03743" target="_blank" class="link-pill primary">
+            📄 Paper
+        </a>
+        <a href="https://github.com/An-Axolotl/House_Of_Dextra_CoDesign" target="_blank" class="link-pill">
+            💻 GitHub
+        </a>
+        <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank" class="link-pill">
+            🔧 Hardware Code
+        </a>
+        <a href="build_guide.html" class="link-pill">
+            📋 Hardware Guide
+        </a>
+        <a href="https://www.robotis.us/house-of-dextra-bundle/?searchid=218037&search_query=dextra" target="_blank" class="link-pill">
+            🛒 Order Kit
+        </a>
+        <a href="https://drive.google.com/drive/folders/1ZXCTARUs1mCBAOpoovgNEcKI4YZUa5ZV?usp=sharing" target="_blank" class="link-pill">
+            🎬 Real-World Demos
+        </a>
     </div>
+</header>
 
-    <!-- Paper Section -->
-    <div class="section" style="margin-top: 40px; margin-bottom: 40px;">
-        <h2>Paper</h2>
-        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-            <h3 style="text-align: center; margin-bottom: 20px; font-size: 1.3em; color: #ffffff; font-family: 'Crimson Pro', serif;">Latest Version (April 19th, 2026): <a href="https://arxiv.org/abs/2512.03743" style="color: #6b8fd9; text-decoration: none; border-bottom: 1px dotted #6b8fd9;">here</a></h3>
-            <a href="#" style="display: block; text-align: center;">
-                <img src="videos/paper-preview.png" alt="Paper Preview" style="max-width: 600px; width: 100%; border: 1px solid #35353b; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+<!-- ── Hero video ─────────────────────────────────────────── -->
+<div class="hero-wrap">
+    <video autoplay muted loop playsinline preload="none" poster="figures/video_poster.jpg">
+        <source src="videos/video.mp4" type="video/mp4">
+    </video>
+    <p class="hero-caption">
+        <strong>Top:</strong> Fully generated robot hand developed for blind (no vision) in-hand rotation &nbsp;·&nbsp; <strong>Bottom:</strong> Human designed baseline
+    </p>
+</div>
+
+<!-- ── Abstract ───────────────────────────────────────────── -->
+<div class="page">
+<section id="abstract">
+    <h2>Abstract</h2>
+    <div class="abstract-text">
+        <p>Dexterous manipulation is limited by both control and design, without consensus as to what makes manipulators best for performing dexterous tasks. This raises a fundamental challenge: <strong>can we generate full hardware design and control for specialized task dexterity?</strong></p>
+        <p>We present a co-design framework that learns task-specific hand morphology and complementary dexterous control policies. The framework supports 1) an expansive morphology search space including joint, finger, and palm generation, 2) scalable evaluation across the wide design space via morphology-conditioned cross-embodied control, and 3) real-world fabrication with accessible components.</p>
+        <p>We evaluate the approach across multiple dexterous tasks, including in-hand rotation with simulation and real deployment. Our framework enables an end-to-end pipeline that can design, train, fabricate, and deploy a new robotic hand in under 24 hours. The full framework is open-sourced.</p>
+    </div>
+</section>
+
+<!-- ── Paper ───────────────────────────────────────────────── -->
+<section id="paper">
+    <h2>Paper</h2>
+    <div class="paper-block">
+        <div class="paper-thumb">
+            <a href="https://arxiv.org/abs/2512.03743" target="_blank">
+                <img src="figures/paper-preview.png" alt="Paper preview">
             </a>
         </div>
+        <div class="paper-meta">
+            <h3>House of Dextra: Cross-Embodied Co-Design for Dexterous Hands</h3>
+            <p>Kehlani Fay, Darin Djapri, Anya Zorin, James Clinton, Ali El Lahib, Hao Su, Michael T. Tolley, Sha Yi, Xiaolong Wang</p>
+            <p>arXiv preprint · December 2025 &nbsp;·&nbsp; <em>Latest version: April 19, 2026</em></p>
+            <a href="https://arxiv.org/abs/2512.03743" target="_blank" class="link-pill primary" style="font-size:0.82rem; padding:5px 14px; display:inline-flex; margin-top:4px;">arXiv →</a>
+        </div>
     </div>
+</section>
 
-    <!-- Links -->
-    <div class="links">
-        <a href="https://github.com/An-Axolotl/House_Of_Dextra_CoDesign" target="_blank" class="link-button">GitHub</a>
-        <a href="https://github.com/An-Axolotl/House_Of_Dextra_Build_Guide" target="_blank" class="link-button secondary">Hardware Deployment Code</a>
-        <a href="build_guide.html" class="link-button secondary">Hardware Guide (Out Now!)</a>
-		<a href="https://www.robotis.us/house-of-dextra-bundle/?searchid=218037&search_query=dextra" target="_blank" class="link-button">Order Dynamixel Bundle</a>
-        <a href="https://drive.google.com/drive/folders/1ZXCTARUs1mCBAOpoovgNEcKI4YZUa5ZV?usp=sharing" class="link-button secondary">Real World Demos</a>
+<!-- ── Explainer ───────────────────────────────────────────── -->
+<section id="video">
+    <h2>Explainer Video</h2>
+    <div class="explainer-wrap">
+        <video controls preload="none" poster="figures/explainer_poster.jpg">
+            <source src="videos/explainer.mp4" type="video/mp4">
+            <track kind="captions" src="videos/explainer.vtt" srclang="en" label="English" default>
+            Your browser does not support the video tag.
+        </video>
     </div>
+</section>
 
-    <!-- Explainer Video Section -->
-    <section class="section" style="padding-top: 60px; padding-bottom: 100px;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-            <video controls style="width: 100%; border-radius: 8px; border: 1px solid #35353b; box-shadow: 0 8px 40px rgba(0,0,0,0.5);">
-                <source src="videos/explainer.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+<!-- ── How It Works ────────────────────────────────────────── -->
+<section id="method">
+    <h2>Method</h2>
+    <p class="method-text">
+        Our approach combines three components: <strong>grammar-based hand generation</strong> that constructs anthropomorphic and non-anthropomorphic hand families from primitive components with pre-computed collision meshes; a <strong>morphology-conditioned cross-embodied policy</strong> using action masking to efficiently evaluate designs across varying degrees of freedom, finger counts, lengths, and fingertip types; and a <strong>modular hardware platform</strong> enabling zero-shot sim-to-real transfer. Design search uses Graph Heuristic Search adapted for cross-embodied dexterous evaluation.
+    </p>
+    <img src="figures/method.png" alt="Method overview" class="method-img">
+</section>
+
+<!-- ── Three Specialized Tasks ────────────────────────────── -->
+<section id="demos">
+    <h2>Three Specialized Tasks</h2>
+    <div class="demo-grid">
+        <div class="demo-card">
+            <video autoplay muted loop playsinline preload="none">
+                <source src="videos/inHandRot.mp4" type="video/mp4">
             </video>
-        </div>
-    </section>
-
-    <!-- Key Features -->
-    <div class="section">
-        <h2>Key Features</h2>
-        <div class="features">
-            <div class="feature">
-                <h3>🚀 Fast Training</h3>
-                <p>A new robot hand can be generated, assembled, and deployed in under 24 hours.</p>
-            </div>
-            <div class="feature">
-                <h3>🎯 Realistic Generation </h3>
-                <p> Co-designed hands are generated with accurate collision meshes, wide range of morphology variations, and generalize to unseen objects.</p>
-            </div>
-            <div class="feature">
-                <h3>🔧 Easy Sim-to-Real</h3>
-                <p>Easy to build, assemble, and deploy with minimal debugging.</p>
+            <div class="card-body">
+                <h3>In-Hand Rotation</h3>
+                <p>Rotate objects from 16 YCB items on the x-axis from a resting pose.</p>
             </div>
         </div>
-    </div>
-
-    <!-- Method Overview -->
-    <div class="section">
-        <h2>How It Works</h2>
-	<div class="content">
-	    <p>
-		Our approach consists of three main components: A scaleable cross-embodied policy, robot hand generation, and a modular robot hand platform. 
-		Each component helps create tractable sim-to-real for long horizon, dexterous tasks across morphologies. We leverage Graph Heuristic Search<sup><a href="https://people.csail.mit.edu/jiex/papers/robogrammar/index.html" target="_blank">[1]</a></sup>, altered for cross embodied and dexterous hand evaluation, for search between ideal design and control pairs. 
-	    </p>
-	</div>
-    </div>
-<div class="content">
-    <ul>
-        <li><strong>Generation:</strong> Modular grammars are used to construct varying families of robot hands - these include three groups of anthropomorphic and three groups of non-anthropomorphic hands. Hands are generated from primitive components with pre-computed collision meshes and dynamically computed convex hulls used for palms.</li>
-        <li><strong>Cross Embodied Policy:</strong> Action masking is used to create a morphology conditioned cross embodied policies that can evaluate generated robot hands. This allows efficient evaluation across varying degrees of freedom, finger number, finger lengths, and fingertip types. </li>
-        <li><strong>Robot Hand Platform:</strong> To deploy sim-to-real easily, a modular platform is created with modular electronics and servo motors.</li>
-        <li><strong>Design Analysis:</strong> We provide initial analysis into design parameters of impact, showing morphology is critical to control.</li>
-    </ul>
-</div>
-        <!-- Add diagram or illustration here -->
-        <img src="videos/method.png" alt="Method Diagram" style="max-width: 70%; margin: 40px auto; display: block; border-radius: 8px; border: 1px solid #35353b; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
-
-    <!-- Demonstrations -->
-    <div class="section">
-        <h2>Demonstrations</h2>
-        <div class="demo-grid">
-            <div class="demo-item">
-            	<h3>Resting Rotation</h3>
-                <video autoplay muted loop playsinline>
-                    <source src="videos/inHandRot.mp4" type="video/mp4">
-                </video>
-                <p>Rotate a ramdom object from a set of 16 YCB objects on the x axis.</p>
-            </div>
-            <div class="demo-item">
+        <div class="demo-card">
+            <video autoplay muted loop playsinline preload="none">
+                <source src="videos/GraspSample.mp4" type="video/mp4">
+            </video>
+            <div class="card-body">
                 <h3>Grasping</h3>
-                <video autoplay muted loop playsinline>
-                    <source src="videos/GraspSample.mp4" type="video/mp4">
-                </video>
-                <p>Grasp the object with a fixed wrist, hold until reset.</p>
+                <p>Grasp object with fixed wrist and hold until reset.</p>
             </div>
-            <div class="demo-item">
-                <h3> Flipping</h3>
-                <video id="flipping-video" autoplay muted loop playsinline>
-                    <source src="videos/flipping.mov" type="video/mp4">
-                </video>
-                <p>Rotate an object resting on the ground about the z axis with a fixed wrist.</p>
+        </div>
+        <div class="demo-card">
+            <video id="flipping-video" autoplay muted loop playsinline preload="none">
+                <source src="videos/flipping.mov" type="video/mp4">
+            </video>
+            <div class="card-body">
+                <h3>Flipping</h3>
+                <p>Rotate an object resting on the ground about the z-axis with a fixed wrist.</p>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Generalization -->
-<div class="section">
-    <h2>Generalization</h2>
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <img src="videos/RotationReal.png" alt="Real World Rotation Results" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border: 1px solid #35353b;">
+<!-- ── Generalization & Hardware ──────────────────────────── -->
+<section id="generalization">
+    <h2>Generalization &amp; Hardware</h2>
+
+    <img src="figures/hardware.jpeg" alt="Hardware platform" class="hw-img">
+    <p class="gen-text">
+        We evaluate our co-designed hands completely blind in the real world on unseen objects, with no state or tactile information given to the policy. Four co-designed hands are tested sim-to-real, demonstrating generalization across rigid and soft objects with varying shape, weight, and texture. Simulation rankings reliably predict real-world performance.
+    </p>
+    <p class="hw-text">
+        The platform is designed for easy assembly with modular fingertips, degrees of freedom, finger count, palm geometry, and finger placement. Using only bolts, a screwdriver, and a 3D printer, the full system can be assembled in under 4 hours. A single control board handles all electronics. The modular design is intended for broad use in manipulation co-design research.
+    </p>
+    <div class="tip">
+        💡 Follow the <a href="build_guide.html">hardware guide</a> for assembly tutorials, deployment code, and printing instructions.
+    </div>
+</section>
+
+<!-- ── Team ───────────────────────────────────────────────── -->
+<section id="team">
+    <h2>Team</h2>
+    <div class="team-grid">
+        <div class="author-card">
+            <img src="figures/da_boss.jpg" alt="Kehlani Fay">
+            <a href="https://an-axolotl.github.io/fay-robotics.github.io/">Kehlani Fay</a><sup>1</sup>
         </div>
-        <div class="content">
-            <p>
-                We test our cross embodied policy and designs completely blind in the real world. All objects are unseen at test time with no state or tactile information given to the policy. We show the ability four our optimal co-designed hand to generalize across rigid and soft objects, object shape, weight, and textures. Our method is tested sim-to-real across four co-designed robot hands to show performance of the optimal found design relative to other co-designed robot hands and to show trade offs in design and control. We find the ranking and success in simulation can accurately predict real performance.
-            </p>
+        <div class="author-card">
+            <img src="figures/darin.jpeg" alt="Darin Djapri">
+            <a href="https://www.linkedin.com/in/darin-djapri-a91143214">Darin Djapri</a><sup>1</sup>
+        </div>
+        <div class="author-card">
+            <img src="figures/anya.png" alt="Anya Zorin">
+            <a href="https://anyazorin.com/">Anya Zorin</a><sup>1</sup>
+        </div>
+        <div class="author-card">
+            <img src="figures/James.jpg" alt="James Clinton">
+            <a href="https://me.ucsb.edu/people/james-clinton">James Clinton</a><sup>2</sup>
+        </div>
+        <div class="author-card">
+            <img src="figures/Robot.png" alt="Ali El Lahib">
+            <span>Ali El Lahib<sup>1</sup></span>
+        </div>
+        <div class="author-card">
+            <img src="figures/hao.jpg" alt="Hao Su">
+            <a href="https://cseweb.ucsd.edu/~haosu/">Hao Su</a><sup>1</sup>
+        </div>
+        <div class="author-card">
+            <img src="figures/Tolley.jpg" alt="Michael T. Tolley">
+            <a href="https://tolley.eng.ucsd.edu/">Michael T. Tolley</a><sup>1</sup>
+        </div>
+        <div class="author-card">
+            <img src="figures/ShaYi.png" alt="Sha Yi">
+            <a href="https://yswhynot.github.io/">Sha Yi</a><sup>1</sup>
+        </div>
+        <div class="author-card">
+            <img src="figures/Xiaolong.jpeg" alt="Xiaolong Wang">
+            <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup>
         </div>
     </div>
-</div>
+    <p class="affil-note"><sup>1</sup>University of California, San Diego &nbsp;&nbsp; <sup>2</sup>University of California, Santa Barbara</p>
+</section>
 
-    <!-- Hardware -->
-    <div class="section">
-        <h2>Hardware</h2>
-        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <img src="videos/Assemble.png" alt="Hardware Assembly" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border: 1px solid #35353b;">
-            </div>
-            <div class="content">
-                <p>
-                    Our hardware design is optimized for easy assembly with modular fingertips, degrees of freedom, finger number, palms, finger length, and finger placement. The system uses readily available components and can be assembled in under 4 hours without any specialty tools - only bolts, screw driver, and 3d printer required. Electronics are also modular using just one control board. The modular design allows for easy customization for additional co-design projects in manipulation.
-                </p>
-                <div class="tip-box">
-                    <div class="tip-box-content">
-                        <span style="font-size: 1.5em;">💡</span>
-                        <div>
-                            <strong>Pro Tip:</strong>
-                            <p>
-                                You can follow our <a href="build_guide.html" style="color:#ffc107;">hardware guide</a> here for assembly tutorials, deployment code, and printing instructions.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- ── Citation ───────────────────────────────────────────── -->
+<section id="citation">
+    <h2>BibTeX</h2>
+    <div class="bibtex">@article{fay2025crossembodied,
+  title   = {Cross Embodied Co-Design for Dexterous Hands},
+  author  = {Fay, Kehlani and Djapri, Darin and Zorin, Anya and Clinton, James
+             and El Lahib, Ali and Su, Hao and Tolley, Michael T.
+             and Yi, Sha and Wang, Xiaolong},
+  journal = {arXiv preprint arXiv:2512.03743},
+  year    = {2025},
+  month   = {December}
+}</div>
+</section>
+</div><!-- /page -->
 
-    
-    <div class="section">
-    <h2>Design Analysis</h2>
-    <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <img src="videos/DesignAnalysis.png" alt="Policy Architecture Overview" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); border: 1px solid #35353b;">
-        </div>
-        <div class="content">
-            <p>
-                We explore physical parameters of impact to understand what parameters most affect control. Across all tested parameters, morphology parameters mattered most. Additional analysis of control limits and control type for long horizon tasks are provided in the paper.
-            </p>
-        </div>
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer>
+    <p>Supported by NSF GRFP. &nbsp;·&nbsp; Website template inspired by <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.</p>
+</footer>
 
-<!-- Key Findings -->
-<div class="section">
-    <h2>Key Findings</h2>
-    <div class="content">
-        <p>
-            Through our experiments on cross-embodied co-design for dexterous manipulation, we find the following to be of key importance:
-        </p>
-        <ul style="margin-top: 20px; line-height: 2; color: #d8d8d8;">
-            <li><strong>Cross-embodiment enables tractable scaling:</strong> Cross-embodiment evaluation provides a practical approach to assess designs for complex manipulation without sacrificing fine control for computational speed, making co-design optimization feasible for real-world deployment.</li>
-            <li><strong>Realistic grammar-based design enables zero-shot transfer:</strong> Grounding design grammars in physical components allows for seamless sim-to-real transfer without additional fine-tuning, as the modular structure maintains consistent physical properties across domains.</li>
-            <li><strong>Morphology dominates the design space:</strong> Among all design parameters, morphological choices have the largest impact on manipulation performance, suggesting that shape and structure optimization should be prioritized over other design considerations.</li>
-        </ul>
-    </div>
-</div>
-
-    <!-- Team -->
-    <div class="authors">
-        <h3>Team</h3>
-        <div class="author-list">
-            <div class="author">
-                <img src="authors/da_boss.jpg" alt="Author 1">
-                <a href="https://an-axolotl.github.io/fay-robotics.github.io/">Kehlani Fay</a><sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/darin.jpeg" alt="Author 2">
-                <a href="https://www.linkedin.com/in/darin-djapri-a91143214">Darin Djapri</a><sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/anya.png" alt="Author 2">
-                <a href="https://anyazorin.com/">Anya Zorin</a><sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/James.jpg" alt="Author 3">
-                <a href="https://me.ucsb.edu/people/james-clinton">James Clinton</a><sup>2</sup>
-            </div>
-            <div class="author">
-                <img src="authors/Robot.png" alt="Author 2">
-                Ali El Lahib<sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/hao.jpg" alt="Author 2">
-                <a href="https://cseweb.ucsd.edu/~haosu/">Hao Su</a><sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/Tolley.jpg" alt="Author 2">
-                <a href="https://tolley.eng.ucsd.edu/">Michael T. Tolley</a><sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/ShaYi.png" alt="Author 2">
-                <a href="https://yswhynot.github.io/">Sha Yi</a><sup>1</sup>
-            </div>
-            <div class="author">
-                <img src="authors/Xiaolong.jpeg" alt="Author 2">
-                <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup>
-            </div>
-        </div>
-        <div class="affiliations">
-            <sup>1</sup> University of California, San Diego &nbsp;&nbsp;&nbsp; <sup>2</sup> University of California, Santa Barbra
-        </div>
-    </div>
-
-    <!-- Citation -->
-    <div class="section">
-        <h2>Citation</h2>
-        <div class="citation">
-@article{fay2025crossembodied,
-  title={Cross Embodied Co-Design for Dexterous Hands},
-  author={Fay, Kehlani and Djapri, Darin and Zorin, Anya and Clinton, James and El Lahib, Ali and Su, Hao and Tolley, Michael T. and Yi, Sha and Wang, Xiaolong},
-  journal={arXiv preprint},
-  year={2025},
-  month={December}
-}
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>This work was supported by NSF GRFP.</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Make flipping video loop at 38 seconds
-            const flippingVideo = document.getElementById('flipping-video');
-            if (flippingVideo) {
-                flippingVideo.addEventListener('timeupdate', function() {
-                    if (flippingVideo.currentTime >= 38) {
-                        flippingVideo.currentTime = 0;
-                    }
-                });
-            }
-
-            // Set explainer video to 1.25x speed 
-            const explainerVideo = document.querySelector('section.section video');
-            if (explainerVideo) {
-                explainerVideo.playbackRate = 1.25;
-            }
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Loop flipping video at 38s
+    const flip = document.getElementById('flipping-video');
+    if (flip) {
+        flip.addEventListener('timeupdate', function () {
+            if (flip.currentTime >= 38) flip.currentTime = 0;
         });
-    </script>
+    }
+    // Explainer at 1.25x
+    const explainer = document.querySelector('#video video');
+    if (explainer) explainer.playbackRate = 1.25;
+});
+</script>
 </body>
 </html>
