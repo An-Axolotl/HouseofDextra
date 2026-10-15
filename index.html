@@ -269,6 +269,28 @@
             color: var(--body);
         }
         .abstract-text p + p { margin-top: 1.2em; text-indent: 1.5em; }
+        .abstract-text strong { color: var(--heading); font-weight: 600; }
+        .abstract-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 36px;
+            align-items: center;
+        }
+        .abstract-render video {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+        .abstract-render figcaption {
+            font-size: 0.78rem;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 8px;
+        }
+        @media (max-width: 760px) {
+            .abstract-grid { grid-template-columns: 1fr; }
+            .abstract-render { max-width: 320px; margin: 0 auto; }
+        }
 
         /* ── Paper preview ────────────────────────────────── */
         .paper-block {
@@ -522,10 +544,17 @@
 <div class="page">
 <section id="abstract">
     <h2>Abstract</h2>
-    <div class="abstract-text">
-        <p>Dexterous manipulation is limited by both control and design, without consensus as to what makes manipulators best for performing dexterous tasks. This raises a fundamental challenge: <strong>can we generate entire robot manipulators and control policies optimized for task dexterity?</strong></p>
-        <p>We present a co-design framework that learns task-specific hand morphology and complementary dexterous control policies. The framework supports 1) an expansive morphology search space including joint, finger, and palm generation, 2) scalable evaluation across the wide design space via morphology-conditioned cross-embodied control, and 3) real-world fabrication with accessible components.</p>
-        <p>We evaluate the approach across multiple dexterous tasks, including in-hand rotation with simulation and real deployment. Our framework enables an end-to-end pipeline that can design, train, fabricate, and deploy a new robotic hand in under 24 hours. The full framework is open-sourced.</p>
+    <div class="abstract-grid">
+        <div class="abstract-text">
+            <p>Dexterous manipulation is limited by both control and design, with no consensus on what makes a manipulator best for dexterous tasks. This raises a fundamental challenge: <strong>can we generate entire robot hands and control policies optimized for task dexterity?</strong></p>
+            <p>We present a <strong>robot hand co-design framework</strong> that jointly learns <strong>task-specific hand morphology and dexterous control policies</strong>. It pairs an expansive search over joints, fingers, and palms with scalable evaluation through <strong>morphology-conditioned cross-embodied control</strong>, and fabricates designs from accessible components. Validated on in-hand rotation in simulation and on real hardware, the open-source pipeline can <strong>design, train, fabricate, and deploy a new robot hand in under 24 hours</strong>.</p>
+        </div>
+        <figure class="abstract-render">
+            <video autoplay muted loop playsinline preload="metadata" poster="figures/hand_render_poster.jpg" aria-label="Blender render of a generated five-finger House of Dextra robot hand curling its fingers">
+                <source src="videos/hand_render.mp4" type="video/mp4">
+            </video>
+            <figcaption>A generated five-finger hand (Blender render)</figcaption>
+        </figure>
     </div>
 </section>
 
